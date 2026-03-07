@@ -1,4 +1,4 @@
-﻿namespace Tasky.Domain
+﻿namespace Tasky.Domain.Entities
 {
     public class User
     {
