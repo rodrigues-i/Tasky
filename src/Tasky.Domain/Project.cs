@@ -22,5 +22,26 @@ namespace Tasky.Domain
             Id = id;
             Name = name;
         }
+
+        public void AddMember(Guid userId)
+        {
+            if (_memberships.Any(m => m.UserId == userId))
+                throw new Exception("User already member");
+
+            _memberships.Add(new ProjectMembership(userId));
+        }
+
+        public void CreateTask(Guid taskId, string title)
+        {
+            _tasks.Add(new Task(taskId, title));
+        }
+
+        public void AssignUserToTask(Guid taskId, Guid userId)
+        {
+            if (!_memberships.Any(m => m.UserId == userId))
+                throw new Exception("User is not a project member");
+            var task = _tasks.First(task => task.Id == taskId);
+            task.AssignUser(userId);
+        }
     }
 }
