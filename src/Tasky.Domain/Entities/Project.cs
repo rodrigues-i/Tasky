@@ -43,5 +43,10 @@ namespace Tasky.Domain.projects
             var task = _tasks.First(task => task.Id == taskId);
             task.AssignUser(userId);
         }
+
+        public void UpdateDetails(string name)
+        {
+            Name = name;
+        }
     }
 }
