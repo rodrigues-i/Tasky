@@ -7,7 +7,7 @@ namespace Tasky.Domain.Interfaces
     {
         Task<Project> GetProjectById(Guid projectId);
         Task CreateProject(Project project);
-        Task UpdateProject(Guid projectId, Project project);
+        Task UpdateProject(Project project);
         Task DeleteProject(Guid projectId);
     }
 }

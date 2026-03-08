@@ -16,7 +16,7 @@ namespace Tasky.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Task UpdateProject(Guid projectId, Project project)
+        public Task UpdateProject(Project project)
         {
             throw new NotImplementedException();
         }
