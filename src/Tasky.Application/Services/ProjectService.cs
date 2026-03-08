@@ -8,7 +8,7 @@ namespace Tasky.Application.Services
 {
     public class ProjectService : IProjectService
     {
-        private IProjectRepository _repository;
+        private readonly IProjectRepository _repository;
 
         public ProjectService(IProjectRepository repository)
         {
@@ -26,7 +26,7 @@ namespace Tasky.Application.Services
             if (existingProject is null)
                 throw new Exception("Project not found");
 
-            await _repository.DeleteProject(projectId);
+            await _repository.DeleteProject(existingProject);
         }
 
         public async Task<Project> GetProjectById(Guid projectId)
@@ -45,7 +45,7 @@ namespace Tasky.Application.Services
                 throw new Exception("Project not found");
 
             existingProject.UpdateDetails(project.Name);
-            await _repository.UpdateProject(existingProject);
+            await _repository.UpdateProject();
         }
     }
 }

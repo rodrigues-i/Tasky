@@ -19,23 +19,24 @@ namespace Tasky.Infrastructure.Persistence.Repositories
             return await _context.Projects
                 .Include(p => p.Tasks)
                 .Include(p => p.Memberships)
-                .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.Id == projectId);
         }
 
-        public Task CreateProject(Project project)
+        public async Task CreateProject(Project project)
         {
-            throw new NotImplementedException();
+            await _context.Projects.AddAsync(project);
+            await _context.SaveChangesAsync();
         }
 
-        public Task UpdateProject(Project project)
+        public async Task UpdateProject()
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
         }
 
-        public Task DeleteProject(Guid projectId)
+        public async Task DeleteProject(Project project)
         {
-            throw new NotImplementedException();
+            _context.Projects.Remove(project);
+            await _context.SaveChangesAsync();
         }
     }
 }
