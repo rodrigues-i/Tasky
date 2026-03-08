@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/Tasky.Api/Tasky.Api.csproj" />
+    <Project Path="src/Tasky.Application/Tasky.Application.csproj" Id="a4fb7bd6-fae6-474c-85d2-cad7c36554a9" />
     <Project Path="src/Tasky.Domain/Tasky.Domain.csproj" />
     <Project Path="src/Tasky.Infrastructure/Tasky.Infrastructure.csproj" />
   </Folder>
