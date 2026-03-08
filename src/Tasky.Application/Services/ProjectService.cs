@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Tasky.Application.Interfaces;
 using Tasky.Domain.Interfaces;
-using Tasky.Domain.projects;
+using Tasky.Domain.Entities;
 using Task = System.Threading.Tasks.Task;
 
 namespace Tasky.Application.Services

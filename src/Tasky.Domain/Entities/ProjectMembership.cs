@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tasky.Domain.projects
+namespace Tasky.Domain.Entities
 {
     public class ProjectMembership
     {

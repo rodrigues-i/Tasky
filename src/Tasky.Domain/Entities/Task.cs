@@ -1,4 +1,4 @@
-﻿namespace Tasky.Domain.projects
+﻿namespace Tasky.Domain.Entities
 {
     public class Task
     {

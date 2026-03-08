@@ -1,5 +1,5 @@
 ﻿using Tasky.Domain.Interfaces;
-using Tasky.Domain.projects;
+using Tasky.Domain.Entities;
 using Task = System.Threading.Tasks.Task;
 
 namespace Tasky.Infrastructure.Persistence.Repositories
