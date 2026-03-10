@@ -14,9 +14,24 @@ namespace Tasky.Application.Services
             _repository = repository;
         }
 
+        public Task AddMember(Guid userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AssignUserToUser(Guid taskId, Guid userId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task CreateProject(Project project)
         {
             await _repository.CreateProject(project);
+        }
+
+        public Task CreateTask(Task task)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task DeleteProject(Guid projectId)
@@ -28,6 +43,11 @@ namespace Tasky.Application.Services
             await _repository.DeleteProject(existingProject);
         }
 
+        public Task DeleteTask(Guid taskId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Project> GetProjectById(Guid projectId)
         {
             var project = await _repository.GetProjectById(projectId);
@@ -35,6 +55,20 @@ namespace Tasky.Application.Services
                 throw new Exception("Project not found");
             return project;
 
+        }
+
+        public async Task RemoveMember(Guid projectId, Guid userId)
+        {
+            var project = await _repository.GetProjectById(projectId);
+            if (project is null)
+                throw new Exception("Project not found");
+
+            await _repository.RemoveMember(userId, project);
+        }
+
+        public Task UnassignUserFromTask(Guid taskId, Guid userId)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task UpdateProject(Guid projectId, Project project)

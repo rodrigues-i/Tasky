@@ -1,7 +1,9 @@
-﻿using Tasky.Domain.Interfaces;
-using Tasky.Domain.Entities;
-using Task = System.Threading.Tasks.Task;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using Tasky.Domain.Entities;
+using Tasky.Domain.Interfaces;
+using Task = System.Threading.Tasks.Task;
+using Project = Tasky.Domain.Entities.Project;
 
 namespace Tasky.Infrastructure.Persistence.Repositories
 {
@@ -36,6 +38,37 @@ namespace Tasky.Infrastructure.Persistence.Repositories
         public async Task DeleteProject(Project project)
         {
             _context.Projects.Remove(project);
+            await _context.SaveChangesAsync();
+        }
+
+        public Task CreateTask(Task task)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddMember(Guid userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AssignUserToUser(Guid taskId, Guid userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UnassignUserFromTask(Guid taskId, Guid userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteTask(Guid taskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task RemoveMember(Guid userId, Project project)
+        {
+            project.RemoveMember(userId);
             await _context.SaveChangesAsync();
         }
     }

@@ -42,5 +42,14 @@
         {
             Name = name;
         }
+
+        public void RemoveMember(Guid userId)
+        {
+            var member = _memberships.FirstOrDefault(m => m.UserId == userId);
+            if (member is null)
+                throw new Exception("User is not a member of this project");
+
+            _memberships.Remove(member);
+        }
     }
 }
