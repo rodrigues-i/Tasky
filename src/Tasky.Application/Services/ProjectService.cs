@@ -87,5 +87,14 @@ namespace Tasky.Application.Services
             existingProject.UpdateDetails(project.Name);
             await _repository.UpdateProject();
         }
+
+        private async Task<Project?> GetProject(Guid projectId)
+        {
+            var project = await _repository.GetProjectById(projectId);
+            if (project is null)
+                throw new Exception("Project not found");
+
+            return project;
+        }
     }
 }
