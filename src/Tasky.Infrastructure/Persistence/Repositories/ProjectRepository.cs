@@ -70,5 +70,10 @@ namespace Tasky.Infrastructure.Persistence.Repositories
         {
             await _context.SaveChangesAsync();
         }
+
+        public async Task AddMember()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 }

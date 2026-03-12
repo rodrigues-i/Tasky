@@ -14,9 +14,14 @@ namespace Tasky.Application.Services
             _repository = repository;
         }
 
-        public Task AddMember(Guid userId)
+        public async Task AddMember(Guid userId, Guid projectId)
         {
-            throw new NotImplementedException();
+            var project = await _repository.GetProjectById(projectId);
+            if (project is null)
+                throw new Exception("Project not found");
+
+            project.AddMember(userId);
+            await _repository.AddMember();
         }
 
         public Task AssignUserToUser(Guid taskId, Guid userId)

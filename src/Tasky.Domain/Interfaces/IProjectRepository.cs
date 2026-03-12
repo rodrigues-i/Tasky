@@ -10,7 +10,7 @@ namespace Tasky.Domain.Interfaces
         Task UpdateProject();
         Task DeleteProject(Project project);
         Task CreateTask(Task task);
-        Task AddMember(Guid userId);
+        Task AddMember();
         Task AssignUserToUser(Guid taskId, Guid userId);
         Task UnassignUserFromTask(Guid taskId, Guid userId);
         Task DeleteTask(Guid taskId);
