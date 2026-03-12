@@ -11,7 +11,7 @@ namespace Tasky.Application.Interfaces
         Task DeleteProject(Guid projectId);
         Task CreateTask(Task task);
         Task AddMember(Guid userId, Guid projectId);
-        Task AssignUserToUser(Guid taskId, Guid userId);
+        Task AssignTaskToUser(Guid taskId, Guid userId, Guid projectId);
         Task UnassignUserFromTask(Guid taskId, Guid userId);
         Task DeleteTask(Guid taskId);
         Task RemoveMember(Guid projectId, Guid userId);

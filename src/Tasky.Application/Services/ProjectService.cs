@@ -16,17 +16,17 @@ namespace Tasky.Application.Services
 
         public async Task AddMember(Guid userId, Guid projectId)
         {
-            var project = await _repository.GetProjectById(projectId);
-            if (project is null)
-                throw new Exception("Project not found");
+            var project = await GetProject(projectId);
 
             project.AddMember(userId);
             await _repository.AddMember();
         }
 
-        public Task AssignUserToUser(Guid taskId, Guid userId)
+        public async Task AssignTaskToUser(Guid taskId, Guid userId, Guid projectId)
         {
-            throw new NotImplementedException();
+            var project = await GetProject(projectId);
+            project.AssignUserToTask(taskId, userId);
+            await _repository.SaveChangesAsync();
         }
 
         public async Task CreateProject(Project project)
@@ -41,9 +41,7 @@ namespace Tasky.Application.Services
 
         public async Task DeleteProject(Guid projectId)
         {
-            var existingProject = await _repository.GetProjectById(projectId);
-            if (existingProject is null)
-                throw new Exception("Project not found");
+            var existingProject = await GetProject(projectId);
 
             await _repository.DeleteProject(existingProject);
         }
@@ -55,18 +53,13 @@ namespace Tasky.Application.Services
 
         public async Task<Project> GetProjectById(Guid projectId)
         {
-            var project = await _repository.GetProjectById(projectId);
-            if (project is null)
-                throw new Exception("Project not found");
-            return project;
+            return await GetProject(projectId);
 
         }
 
         public async Task RemoveMember(Guid projectId, Guid userId)
         {
-            var project = await _repository.GetProjectById(projectId);
-            if (project is null)
-                throw new Exception("Project not found");
+            var project = await GetProject(projectId);
 
             project.RemoveMember(userId);
 
@@ -88,7 +81,7 @@ namespace Tasky.Application.Services
             await _repository.UpdateProject();
         }
 
-        private async Task<Project?> GetProject(Guid projectId)
+        private async Task<Project> GetProject(Guid projectId)
         {
             var project = await _repository.GetProjectById(projectId);
             if (project is null)

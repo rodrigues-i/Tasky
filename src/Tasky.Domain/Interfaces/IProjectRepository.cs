@@ -15,5 +15,6 @@ namespace Tasky.Domain.Interfaces
         Task UnassignUserFromTask(Guid taskId, Guid userId);
         Task DeleteTask(Guid taskId);
         Task RemoveMember();
+        Task SaveChangesAsync();
     }
 }
