@@ -66,9 +66,8 @@ namespace Tasky.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task RemoveMember(Guid userId, Project project)
+        public async Task RemoveMember()
         {
-            project.RemoveMember(userId);
             await _context.SaveChangesAsync();
         }
     }

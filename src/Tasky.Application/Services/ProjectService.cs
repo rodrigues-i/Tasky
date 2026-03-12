@@ -63,7 +63,9 @@ namespace Tasky.Application.Services
             if (project is null)
                 throw new Exception("Project not found");
 
-            await _repository.RemoveMember(userId, project);
+            project.RemoveMember(userId);
+
+            await _repository.RemoveMember();
         }
 
         public Task UnassignUserFromTask(Guid taskId, Guid userId)
