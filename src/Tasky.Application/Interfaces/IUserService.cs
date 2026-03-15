@@ -5,10 +5,10 @@ namespace Tasky.Application.Interfaces
 {
     public interface IUserService
     {
-        public Task<IEnumerable<User>> GetAllUsers();
-        public Task<User> GetUserById(Guid userId);
+        public IEnumerable<User> GetAllUsers();
+        public User GetUserById(Guid userId);
         public Task CreateUser(User user);
-        public Task UpdateUser(User user);
+        public Task UpdateUser(Guid userId, User user);
         public Task DeleteUser(Guid userId);
     }
 }

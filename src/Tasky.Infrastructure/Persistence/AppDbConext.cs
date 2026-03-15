@@ -10,6 +10,7 @@ namespace Tasky.Infrastructure.Persistence
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectMembership> ProjectMemberships { get; set; }
         public DbSet<Task> Tasks { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         { }

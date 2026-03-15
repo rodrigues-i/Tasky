@@ -10,5 +10,10 @@
             Id = userId;
             Name = name;
         }
+
+        public void UpdateUserDetails(User user)
+        {
+            Name = user.Name;
+        }
     }
 }

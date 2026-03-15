@@ -6,24 +6,42 @@ namespace Tasky.Infrastructure.Persistence.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public Task<User> GetUserById(Guid userId)
+        private readonly AppDbContext _context;
+
+        public UserRepository(AppDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task CreateUser(User user)
+        public IEnumerable<User> GetAllUsers()
         {
-            throw new NotImplementedException();
+            var users = _context.Users.ToList();
+            return users;
         }
 
-        public Task UpdateUser(Guid userId, User user)
+        public User? GetUserById(Guid userId)
         {
-            throw new NotImplementedException();
+            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+            return user;
         }
 
-        public Task DeleteUser(Guid userId)
+        public async Task CreateUser(User user)
         {
-            throw new NotImplementedException();
+            _context.Users.Add(user);
+            await SaveChangesAsync();
+            
+        }
+
+        public async Task DeleteUser(User user)
+        {
+            _context.Users.Remove(user);
+            await SaveChangesAsync();
+
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -4,9 +4,10 @@ namespace Tasky.Domain.Interfaces
 {
     public interface IUserRepository
     {
-        Task<User> GetUserById(Guid userId);
-        Task CreateUser(User user);
-        Task UpdateUser(Guid userId, User user);
-        Task DeleteUser(Guid userId);
+        public IEnumerable<User> GetAllUsers();
+        public User? GetUserById(Guid userId);
+        public Task CreateUser(User user);
+        public Task DeleteUser(User user);
+        public Task SaveChangesAsync();
     }
 }
