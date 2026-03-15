@@ -34,9 +34,11 @@ namespace Tasky.Application.Services
             await _repository.CreateProject(project);
         }
 
-        public Task CreateTask(Task task)
+        public async Task CreateTask(Guid projectId, Tasky.Domain.Entities.Task task)
         {
-            throw new NotImplementedException();
+            var project = await GetProject(projectId);
+            project.CreateTask(task);
+            await _repository.SaveChangesAsync();
         }
 
         public async Task DeleteProject(Guid projectId)
