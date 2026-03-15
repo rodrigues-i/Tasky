@@ -12,7 +12,7 @@ namespace Tasky.Application.Interfaces
         Task CreateTask(Guid projectId, Tasky.Domain.Entities.Task task);
         Task AddMember(Guid userId, Guid projectId);
         Task AssignTaskToUser(Guid taskId, Guid userId, Guid projectId);
-        Task UnassignUserFromTask(Guid taskId, Guid userId);
+        Task UnassignUserFromTask(Guid projectId, Guid taskId, Guid userId);
         Task DeleteTask(Guid projectId, Guid taskId);
         Task RemoveMember(Guid projectId, Guid userId);
     }

@@ -16,5 +16,10 @@
         {
             AssignedUserId = userId;
         }
+
+        public void UnassignUser()
+        {
+            AssignedUserId = null;
+        }
     }
 }

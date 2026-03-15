@@ -54,10 +54,18 @@
 
         public void RemoveTask(Guid taskId)
         {
-            var task = _tasks.Find(t => t.Id == taskId);
+            var task = _tasks.FirstOrDefault(t => t.Id == taskId);
             if (task is null)
-                throw new Exception("Task not found0");
+                throw new Exception("Task not found");
             _tasks.Remove(task);
+        }
+
+        public void UnAssignUserFromTask(Guid taskId, Guid userId)
+        {
+            var task = _tasks.FirstOrDefault(t => t.Id == taskId);
+            if (task is null)
+                throw new Exception("Task not found");
+            task.UnassignUser();
         }
     }
 }

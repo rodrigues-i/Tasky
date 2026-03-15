@@ -70,9 +70,11 @@ namespace Tasky.Application.Services
             await _repository.RemoveMember();
         }
 
-        public Task UnassignUserFromTask(Guid taskId, Guid userId)
+        public async Task UnassignUserFromTask(Guid projectId, Guid taskId, Guid userId)
         {
-            throw new NotImplementedException();
+            var project = await GetProject(projectId);
+            project.UnAssignUserFromTask(taskId, userId);
+            await _repository.SaveChangesAsync();
         }
 
         public async Task UpdateProject(Guid projectId, Project project)
