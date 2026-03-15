@@ -51,5 +51,13 @@
 
             _memberships.Remove(member);
         }
+
+        public void RemoveTask(Guid taskId)
+        {
+            var task = _tasks.Find(t => t.Id == taskId);
+            if (task is null)
+                throw new Exception("Task not found0");
+            _tasks.Remove(task);
+        }
     }
 }

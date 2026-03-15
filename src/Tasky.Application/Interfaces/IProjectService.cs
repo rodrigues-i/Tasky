@@ -13,7 +13,7 @@ namespace Tasky.Application.Interfaces
         Task AddMember(Guid userId, Guid projectId);
         Task AssignTaskToUser(Guid taskId, Guid userId, Guid projectId);
         Task UnassignUserFromTask(Guid taskId, Guid userId);
-        Task DeleteTask(Guid taskId);
+        Task DeleteTask(Guid projectId, Guid taskId);
         Task RemoveMember(Guid projectId, Guid userId);
     }
 }

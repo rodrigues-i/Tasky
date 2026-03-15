@@ -48,9 +48,11 @@ namespace Tasky.Application.Services
             await _repository.DeleteProject(existingProject);
         }
 
-        public Task DeleteTask(Guid taskId)
+        public async Task DeleteTask(Guid projectId, Guid taskId)
         {
-            throw new NotImplementedException();
+            var project = await GetProject(projectId);
+            project.RemoveTask(taskId);
+            await _repository.SaveChangesAsync();
         }
 
         public async Task<Project> GetProjectById(Guid projectId)
