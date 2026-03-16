@@ -5,9 +5,9 @@
         public Guid Id { get; private set; }
         public string Name { get; private set; }
 
-        public User(Guid userId, string name)
+        public User(Guid id, string name)
         {
-            Id = userId;
+            Id = id;
             Name = name;
         }
 
