@@ -14,6 +14,12 @@ namespace Tasky.Application.Services
             _repository = repository;
         }
 
+        public List<Project> GetAllProjects()
+        {
+            var projects = _repository.GetAllProjects();
+            return projects;
+        }
+
         public async Task AddMember(Guid userId, Guid projectId)
         {
             var project = await GetProject(projectId);

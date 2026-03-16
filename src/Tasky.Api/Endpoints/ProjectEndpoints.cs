@@ -1,4 +1,5 @@
-﻿using Tasky.Domain.Entities;
+﻿using Tasky.Application.Interfaces;
+using Tasky.Domain.Entities;
 
 namespace Tasky.Api.Endpoints
 {
@@ -6,19 +7,17 @@ namespace Tasky.Api.Endpoints
     {
         public static void MapProjectEndpoints(this IEndpointRouteBuilder app)
         {
-            app.MapGet("/projects", () =>
+            app.MapGet("/projects", (IProjectService service) =>
             {
-                var user1 = new User(Guid.NewGuid(), "Lucas");
-                var user2 = new User(Guid.NewGuid(), "João");
-                var user3 = new User(Guid.NewGuid(), "Pedro");
-                var user4 = new User(Guid.NewGuid(), "Mateus");
+                var projects = service.GetAllProjects();
+                return Results.Ok(projects);
+            });
 
-                var users = new List<User> { user1, user2, user3, user4 };
-
-                return Results.Ok(users);
-            })
-                .WithName("GetUsers")
-                .WithOpenApi();
+            app.MapPost("/projects", (Project project, IProjectService service) =>
+            {
+                service.CreateProject(project);
+                return Results.Ok();
+            });
         }
     }
 }

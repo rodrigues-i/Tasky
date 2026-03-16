@@ -16,6 +16,11 @@ namespace Tasky.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
+        public List<Project> GetAllProjects()
+        {
+            return _context.Projects.ToList();
+        }
+
         public async Task<Project?> GetProjectById(Guid projectId)
         {
             return await _context.Projects

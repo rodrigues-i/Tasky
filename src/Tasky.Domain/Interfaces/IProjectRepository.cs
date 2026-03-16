@@ -16,5 +16,6 @@ namespace Tasky.Domain.Interfaces
         Task DeleteTask(Guid taskId);
         Task RemoveMember();
         Task SaveChangesAsync();
+        List<Project> GetAllProjects();
     }
 }

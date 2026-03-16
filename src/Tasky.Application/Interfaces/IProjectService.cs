@@ -15,5 +15,6 @@ namespace Tasky.Application.Interfaces
         Task UnassignUserFromTask(Guid projectId, Guid taskId, Guid userId);
         Task DeleteTask(Guid projectId, Guid taskId);
         Task RemoveMember(Guid projectId, Guid userId);
+        List<Project> GetAllProjects();
     }
 }
