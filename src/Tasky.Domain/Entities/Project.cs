@@ -22,7 +22,7 @@
             if (_memberships.Any(m => m.UserId == userId))
                 throw new Exception("User already member");
 
-            _memberships.Add(new ProjectMembership(userId));
+            _memberships.Add(new ProjectMembership(Id, userId));
         }
 
         public void CreateTask(Task task)
