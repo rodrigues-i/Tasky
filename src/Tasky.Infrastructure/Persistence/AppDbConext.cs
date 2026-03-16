@@ -14,5 +14,11 @@ namespace Tasky.Infrastructure.Persistence
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProjectMembership>()
+                .HasKey(pm => new { pm.ProjectId, pm.UserId });
+        }
     }
 }
