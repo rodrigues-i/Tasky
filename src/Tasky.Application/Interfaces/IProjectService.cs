@@ -6,7 +6,7 @@ namespace Tasky.Application.Interfaces
     public interface IProjectService
     {
         Task<Project> GetProjectById(Guid projectId);
-        Task CreateProject(Project project);
+        Task CreateProject(string projectName);
         Task UpdateProject(Guid projectId, Project project);
         Task DeleteProject(Guid projectId);
         Task CreateTask(Guid projectId, Tasky.Domain.Entities.Task task);

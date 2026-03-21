@@ -35,8 +35,9 @@ namespace Tasky.Application.Services
             await _repository.SaveChangesAsync();
         }
 
-        public async Task CreateProject(Project project)
+        public async Task CreateProject(string projectName)
         {
+            var project = new Project(Guid.NewGuid(), projectName);
             await _repository.CreateProject(project);
         }
 

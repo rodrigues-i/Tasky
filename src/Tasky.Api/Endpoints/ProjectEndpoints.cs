@@ -1,4 +1,5 @@
-﻿using Tasky.Application.Interfaces;
+﻿using Tasky.Api.DTOs;
+using Tasky.Application.Interfaces;
 using Tasky.Domain.Entities;
 
 namespace Tasky.Api.Endpoints
@@ -13,9 +14,9 @@ namespace Tasky.Api.Endpoints
                 return Results.Ok(projects);
             });
 
-            app.MapPost("/projects", (Project project, IProjectService service) =>
+            app.MapPost("/projects", (CreateProjectRequest createProjectRequest, IProjectService service) =>
             {
-                service.CreateProject(project);
+                service.CreateProject(createProjectRequest.name);
                 return Results.Ok();
             });
         }
