@@ -19,6 +19,19 @@ namespace Tasky.Infrastructure.Persistence
         {
             modelBuilder.Entity<ProjectMembership>()
                 .HasKey(pm => new { pm.ProjectId, pm.UserId });
+
+            modelBuilder.Entity<Project>()
+                .HasMany(p => p.Tasks)
+                .WithOne(t => t.Project)
+                .HasForeignKey(t => t.ProjectId);
+
+            modelBuilder.Entity<Project>()
+                .Navigation(p => p.Tasks)
+                .HasField("_tasks")
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
+
+            modelBuilder.Entity<Task>()
+                .HasKey(t => t.Id);
         }
     }
 }
