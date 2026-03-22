@@ -16,74 +16,41 @@ namespace Tasky.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public List<Project> GetAllProjects()
-        {
-            return _context.Projects.ToList();
-        }
-
-        public async Task<Project?> GetProjectById(Guid projectId)
+        public async Task<IEnumerable<Project>> GetAllAsync()
         {
             return await _context.Projects
                 .Include(p => p.Tasks)
                 .Include(p => p.Memberships)
-                .FirstOrDefaultAsync(p => p.Id == projectId);
+                .AsSplitQuery()
+                .ToListAsync();
         }
 
-        public async Task CreateProject(Project project)
+        public async Task<Project?> GetByIdAsync(Guid id)
+        {
+            return await _context.Projects
+                .Include(p => p.Tasks)
+                .Include(p => p.Memberships)
+                .FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task AddAsync(Project project)
         {
             await _context.Projects.AddAsync(project);
-            await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateProject()
-        {
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteProject(Project project)
+        public void Remove(Project project)
         {
             _context.Projects.Remove(project);
-            await _context.SaveChangesAsync();
-        }
-
-        public Task CreateTask(Task task)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task AddMember(Guid userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task AssignUserToUser(Guid taskId, Guid userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UnassignUserFromTask(Guid taskId, Guid userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task DeleteTask(Guid taskId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task RemoveMember()
-        {
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task AddMember()
-        {
-            await _context.SaveChangesAsync();
         }
 
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
+        }
+
+        public void AddTask(Domain.Entities.Task task)
+        {
+            _context.Tasks.Add(task);
         }
     }
 }
