@@ -39,7 +39,7 @@ app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.MapProjectEndpoints();
 app.MapTaskEndpoints();
-//app.MapUerEndpoints();
+app.MapUserEndpoints();
 
 
 app.Run();
