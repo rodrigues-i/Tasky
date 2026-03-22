@@ -2,6 +2,7 @@
 using Tasky.Domain.Interfaces;
 using Tasky.Domain.Entities;
 using Task = System.Threading.Tasks.Task;
+using Tasky.Application.DTOs;
 
 namespace Tasky.Application.Services
 {
@@ -14,10 +15,18 @@ namespace Tasky.Application.Services
             _repository = repository;
         }
 
-        public List<Project> GetAllProjects()
+        public async Task<IEnumerable<ProjectDto>> GetAllProjects()
         {
-            var projects = _repository.GetAllProjects();
-            return projects;
+            var projects = await _repository.GetAllAsync();
+            return projects.Select(p => new ProjectDto(
+                p.Id,
+                p.Name,
+                p.Tasks.Select(t => new TaskDto(
+                    t.Id,
+                    t.Title,
+                    t.AssignedUserId
+                 )).ToList()
+            ));
         }
 
         public async Task AddMember(Guid userId, Guid projectId)
@@ -25,7 +34,7 @@ namespace Tasky.Application.Services
             var project = await GetProject(projectId);
 
             project.AddMember(userId);
-            await _repository.AddMember();
+            await _repository.SaveChangesAsync();
         }
 
         public async Task AssignTaskToUser(Guid taskId, Guid userId, Guid projectId)
@@ -38,13 +47,15 @@ namespace Tasky.Application.Services
         public async Task CreateProject(string projectName)
         {
             var project = new Project(Guid.NewGuid(), projectName);
-            await _repository.CreateProject(project);
+            await _repository.AddAsync(project);
+            await _repository.SaveChangesAsync();
         }
 
-        public async Task CreateTask(Guid projectId, Tasky.Domain.Entities.Task task)
+        public async Task CreateTask(Guid projectId, string title)
         {
             var project = await GetProject(projectId);
-            project.CreateTask(task);
+            var task = project.CreateTask(title);
+            _repository.AddTask(task);
             await _repository.SaveChangesAsync();
         }
 
@@ -52,7 +63,8 @@ namespace Tasky.Application.Services
         {
             var existingProject = await GetProject(projectId);
 
-            await _repository.DeleteProject(existingProject);
+            _repository.Remove(existingProject);
+            await _repository.SaveChangesAsync();
         }
 
         public async Task DeleteTask(Guid projectId, Guid taskId)
@@ -74,7 +86,7 @@ namespace Tasky.Application.Services
 
             project.RemoveMember(userId);
 
-            await _repository.RemoveMember();
+            await _repository.SaveChangesAsync();
         }
 
         public async Task UnassignUserFromTask(Guid projectId, Guid taskId, Guid userId)
@@ -86,17 +98,17 @@ namespace Tasky.Application.Services
 
         public async Task UpdateProject(Guid projectId, Project project)
         {
-            var existingProject = await _repository.GetProjectById(projectId);
+            var existingProject = await _repository.GetByIdAsync(projectId);
             if (existingProject is null)
                 throw new Exception("Project not found");
 
             existingProject.UpdateDetails(project.Name);
-            await _repository.UpdateProject();
+            await _repository.SaveChangesAsync();
         }
 
         private async Task<Project> GetProject(Guid projectId)
         {
-            var project = await _repository.GetProjectById(projectId);
+            var project = await _repository.GetByIdAsync(projectId);
             if (project is null)
                 throw new Exception("Project not found");
 

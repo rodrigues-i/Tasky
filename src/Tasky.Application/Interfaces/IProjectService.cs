@@ -1,4 +1,5 @@
-﻿using Tasky.Domain.Entities;
+﻿using Tasky.Application.DTOs;
+using Tasky.Domain.Entities;
 using Task = System.Threading.Tasks.Task;
 
 namespace Tasky.Application.Interfaces
@@ -9,12 +10,12 @@ namespace Tasky.Application.Interfaces
         Task CreateProject(string projectName);
         Task UpdateProject(Guid projectId, Project project);
         Task DeleteProject(Guid projectId);
-        Task CreateTask(Guid projectId, Tasky.Domain.Entities.Task task);
+        Task CreateTask(Guid projectId, string title);
         Task AddMember(Guid userId, Guid projectId);
         Task AssignTaskToUser(Guid taskId, Guid userId, Guid projectId);
         Task UnassignUserFromTask(Guid projectId, Guid taskId, Guid userId);
         Task DeleteTask(Guid projectId, Guid taskId);
         Task RemoveMember(Guid projectId, Guid userId);
-        List<Project> GetAllProjects();
+        Task<IEnumerable<ProjectDto>> GetAllProjects();
     }
 }
