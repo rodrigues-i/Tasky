@@ -3,6 +3,7 @@ using Tasky.Domain.Entities;
 using Tasky.Domain.Interfaces;
 using Task = System.Threading.Tasks.Task;
 using BCrypt.Net;
+using Tasky.Application.DTOs;
 
 namespace Tasky.Application.Services
 {
@@ -15,10 +16,14 @@ namespace Tasky.Application.Services
             _repository = repository;
         }
 
-        public IEnumerable<User> GetAllUsers()
+        public IEnumerable<UserDto> GetAllUsers()
         {
             var users = _repository.GetAllUsers();
-            return users;
+            return users.Select(u => new UserDto
+            (
+                u.Name,
+                u.Email
+            ));
         }
 
         public User GetUserById(Guid userId)

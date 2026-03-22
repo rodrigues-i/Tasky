@@ -10,12 +10,13 @@ namespace Tasky.Api.Endpoints
             app.MapPost("/users", async (CreateUserRequest createUserRequest, IUserService service) =>
             {
                 await service.CreateUser(createUserRequest.name, createUserRequest.email, createUserRequest.password);
+                return Results.Ok();
             });
 
             app.MapGet("/users", (IUserService service) =>
             {
                 var users = service.GetAllUsers();
-                return users;
+                return Results.Ok(users);
             });
         }
     }
