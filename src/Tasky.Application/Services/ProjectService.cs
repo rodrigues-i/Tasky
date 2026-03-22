@@ -1,8 +1,9 @@
-﻿using Tasky.Application.Interfaces;
-using Tasky.Domain.Interfaces;
+﻿using Tasky.Application.DTOs;
+using Tasky.Application.Exceptions;
+using Tasky.Application.Interfaces;
 using Tasky.Domain.Entities;
+using Tasky.Domain.Interfaces;
 using Task = System.Threading.Tasks.Task;
-using Tasky.Application.DTOs;
 
 namespace Tasky.Application.Services
 {
@@ -100,7 +101,7 @@ namespace Tasky.Application.Services
         {
             var existingProject = await _repository.GetByIdAsync(projectId);
             if (existingProject is null)
-                throw new Exception("Project not found");
+                throw new NotFoundException("Project not found");
 
             existingProject.UpdateDetails(project.Name);
             await _repository.SaveChangesAsync();
@@ -110,7 +111,7 @@ namespace Tasky.Application.Services
         {
             var project = await _repository.GetByIdAsync(projectId);
             if (project is null)
-                throw new Exception("Project not found");
+                throw new NotFoundException("Project not found");
 
             return project;
         }

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Tasky.Api.Endpoints;
+using Tasky.Api.Middlewares;
 using Tasky.Application.Interfaces;
 using Tasky.Application.Services;
 using Tasky.Domain.Entities;
@@ -32,6 +33,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
 
 
