@@ -25,9 +25,11 @@
             _memberships.Add(new ProjectMembership(Id, userId));
         }
 
-        public void CreateTask(Task task)
+        public Task CreateTask(string title)
         {
-            _tasks.Add(new Task(task.Id, task.Title));
+            var task = new Task(Guid.NewGuid(), title, Id);
+            _tasks.Add(task);
+            return task;
         }
 
         public void AssignUserToTask(Guid taskId, Guid userId)
