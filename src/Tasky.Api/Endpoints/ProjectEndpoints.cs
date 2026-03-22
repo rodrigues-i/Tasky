@@ -8,15 +8,15 @@ namespace Tasky.Api.Endpoints
     {
         public static void MapProjectEndpoints(this IEndpointRouteBuilder app)
         {
-            app.MapGet("/projects", (IProjectService service) =>
+            app.MapGet("/projects", async (IProjectService service) =>
             {
-                var projects = service.GetAllProjects();
+                var projects = await service.GetAllProjects();
                 return Results.Ok(projects);
             });
 
-            app.MapPost("/projects", (CreateProjectRequest createProjectRequest, IProjectService service) =>
+            app.MapPost("/projects", async (CreateProjectRequest createProjectRequest, IProjectService service) =>
             {
-                service.CreateProject(createProjectRequest.name);
+                await service.CreateProject(createProjectRequest.name);
                 return Results.Ok();
             });
         }

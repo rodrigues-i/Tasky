@@ -36,6 +36,7 @@ app.UseHttpsRedirection();
 
 
 app.MapProjectEndpoints();
+app.MapTaskEndpoints();
 //app.MapUerEndpoints();
 
 
