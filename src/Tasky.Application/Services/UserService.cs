@@ -2,6 +2,7 @@
 using Tasky.Domain.Entities;
 using Tasky.Domain.Interfaces;
 using Task = System.Threading.Tasks.Task;
+using BCrypt.Net;
 
 namespace Tasky.Application.Services
 {
@@ -25,8 +26,10 @@ namespace Tasky.Application.Services
             return GetUserById(userId);
         }
 
-        public async Task CreateUser(User user)
+        public async Task CreateUser(string name, string email, string password)
         {
+            var hash = BCrypt.Net.BCrypt.HashPassword(password);
+            var user = new User(Guid.NewGuid(), name, email, hash);
             await _repository.CreateUser(user);
         }
 

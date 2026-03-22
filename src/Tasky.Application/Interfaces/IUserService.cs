@@ -7,7 +7,7 @@ namespace Tasky.Application.Interfaces
     {
         public IEnumerable<User> GetAllUsers();
         public User GetUserById(Guid userId);
-        public Task CreateUser(User user);
+        public Task CreateUser(string name, string email, string password);
         public Task UpdateUser(Guid userId, User user);
         public Task DeleteUser(Guid userId);
     }
