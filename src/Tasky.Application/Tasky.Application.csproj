@@ -10,8 +10,4 @@
     <ProjectReference Include="..\Tasky.Domain\Tasky.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="BCrypt.Net-Next" Version="4.1.0" />
-  </ItemGroup>
-
 </Project>
