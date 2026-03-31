@@ -3,6 +3,6 @@
     public interface IPasswordHasher
     {
         (byte[] hash, byte[] salt) Hash(string password);
-        bool Veriffy(string password, byte[] hash, byte[] salt);
+        bool Verify(string password, byte[] hash, byte[] salt);
     }
 }

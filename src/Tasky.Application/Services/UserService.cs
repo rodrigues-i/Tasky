@@ -2,7 +2,6 @@
 using Tasky.Domain.Entities;
 using Tasky.Domain.Interfaces;
 using Task = System.Threading.Tasks.Task;
-using BCrypt.Net;
 using Tasky.Application.DTOs;
 
 namespace Tasky.Application.Services
@@ -10,10 +9,12 @@ namespace Tasky.Application.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _repository;
+        private readonly IPasswordHasher _hasher;
 
-        public UserService(IUserRepository repository)
+        public UserService(IUserRepository repository, IPasswordHasher hasher)
         {
             _repository = repository;
+            _hasher = hasher;
         }
 
         public IEnumerable<UserDto> GetAllUsers()
@@ -33,8 +34,8 @@ namespace Tasky.Application.Services
 
         public async Task CreateUser(string name, string email, string password)
         {
-            var hash = BCrypt.Net.BCrypt.HashPassword(password);
-            var user = new User(Guid.NewGuid(), name, email, hash);
+            var (hash, salt) = _hasher.Hash(password);
+            var user = new User(Guid.NewGuid(), name, email, hash, salt);
             await _repository.CreateUser(user);
         }
 

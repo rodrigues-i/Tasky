@@ -11,7 +11,7 @@ namespace Tasky.Infrastructure
         {
             var salt = RandomNumberGenerator.GetBytes(16);
 
-            var argon2 = new Argon2id(Encoding.UTF8.GetBytes(password)
+            var argon2 = new Argon2id(Encoding.UTF8.GetBytes(password))
             {
                 Salt = salt,
                 DegreeOfParallelism = 2,
