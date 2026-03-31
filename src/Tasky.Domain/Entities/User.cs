@@ -5,16 +5,18 @@
         public Guid Id { get; private set; }
         public string Name { get; private set; }
         public string Email { get; private set; }
-        public string PasswordHash { get; private set; }
+        public byte[] PasswordHash { get; private set; }
+        public byte[] PasswordSalt { get; private set; }
 
         public User() { }
 
-        public User(Guid id, string name, string email, string hash)
+        public User(Guid id, string name, string email, byte[] hash, byte[] salt)
         {
             Id = id;
             Name = name;
             Email = email;
             PasswordHash = hash;
+            PasswordSalt = salt;
         }
 
         public void UpdateUserDetails(User user)

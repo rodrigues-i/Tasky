@@ -5,6 +5,7 @@ using Tasky.Application.Interfaces;
 using Tasky.Application.Services;
 using Tasky.Domain.Entities;
 using Tasky.Domain.Interfaces;
+using Tasky.Infrastructure;
 using Tasky.Infrastructure.Persistence;
 using Tasky.Infrastructure.Persistence.Repositories;
 
@@ -19,6 +20,7 @@ builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPasswordHasher, Argon2PasswordHasher>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
