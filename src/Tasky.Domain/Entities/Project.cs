@@ -1,6 +1,6 @@
 ﻿namespace Tasky.Domain.Entities
 {
-    public class Project
+    public class Project : IAggregateRoot
     {
         private readonly List<Task> _tasks = new List<Task>();
         private readonly List<ProjectMembership> _memberships = new List<ProjectMembership>();

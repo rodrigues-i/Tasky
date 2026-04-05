@@ -1,6 +1,6 @@
 ﻿namespace Tasky.Domain.Entities
 {
-    public class User
+    public class User : IAggregateRoot
     {
         public Guid Id { get; private set; }
         public string Name { get; private set; }
