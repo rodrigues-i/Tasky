@@ -6,6 +6,7 @@ namespace Tasky.Domain.Interfaces
     {
         public IEnumerable<User> GetAllUsers();
         public User? GetUserById(Guid userId);
+        public User? GetUserByEmail(string email);
         public Task CreateUser(User user);
         public Task DeleteUser(User user);
         public Task SaveChangesAsync();
