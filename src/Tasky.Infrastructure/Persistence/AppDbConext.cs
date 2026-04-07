@@ -32,6 +32,10 @@ namespace Tasky.Infrastructure.Persistence
 
             modelBuilder.Entity<Task>()
                 .HasKey(t => t.Id);
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
         }
     }
 }
