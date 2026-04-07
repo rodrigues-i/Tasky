@@ -29,7 +29,7 @@ namespace Tasky.Application.Services
 
         public User GetUserById(Guid userId)
         {
-            return GetUserById(userId);
+            return GetUser(userId);
         }
 
         public async Task CreateUser(string name, string email, string password)
