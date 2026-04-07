@@ -42,7 +42,7 @@ namespace Tasky.Application.Services
         public async System.Threading.Tasks.Task UpdateUser(Guid userId, User userUpdate)
         {
             var user = GetUserById(userId);
-            user.UpdateUserDetails(user);
+            user.UpdateUserDetails(userUpdate);
             await _repository.SaveChangesAsync();
         }
 
