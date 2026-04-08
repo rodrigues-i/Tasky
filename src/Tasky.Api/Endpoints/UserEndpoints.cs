@@ -7,9 +7,9 @@ namespace Tasky.Api.Endpoints
     {
         public static void MapUserEndpoints(this IEndpointRouteBuilder app)
         {
-            app.MapPost("/users", async (CreateUserRequest createUserRequest, IUserService service) =>
+            app.MapPost("/users", async (RegisterRequest createUserRequest, IUserService service) =>
             {
-                await service.CreateUser(createUserRequest.name, createUserRequest.email, createUserRequest.password);
+                await service.CreateUser(createUserRequest.Name, createUserRequest.Email, createUserRequest.Password);
                 return Results.Ok();
             });
 
