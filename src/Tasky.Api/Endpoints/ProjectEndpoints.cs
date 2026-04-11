@@ -12,7 +12,7 @@ namespace Tasky.Api.Endpoints
             {
                 var projects = await service.GetAllProjects();
                 return Results.Ok(projects);
-            });
+            }).RequireAuthorization();
 
             app.MapPost("/projects", async (CreateProjectRequest createProjectRequest, IProjectService service) =>
             {
