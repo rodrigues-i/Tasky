@@ -15,8 +15,13 @@ namespace Tasky.Api.Endpoints
 
             app.MapPost("/auth/login", (LoginRequest request, IAuthService authService) =>
             {
-                var token = authService.Login(request.Email, request.Password);
-                return Results.Ok(new AuthResponse(token));
+                var result = authService.Login(request.Email, request.Password);
+                if (!result.IsSuccess)
+                    return Results.Json(
+                        new { error = result.Error?.Message },
+                        statusCode: 401
+                     );
+                return Results.Ok(result.Value);
             });
         }
     }

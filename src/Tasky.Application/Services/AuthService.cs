@@ -1,4 +1,7 @@
-﻿using Tasky.Application.Interfaces;
+﻿using Tasky.Application.Common;
+using Tasky.Application.Common.Errors;
+using Tasky.Application.DTOs.Auth;
+using Tasky.Application.Interfaces;
 using Tasky.Domain.Entities;
 using Tasky.Domain.Interfaces;
 
@@ -35,17 +38,22 @@ namespace Tasky.Application.Services
             await _userRepository.CreateUser(user);
         }
 
-        public string Login(string email, string password)
+        public Result<LoginResponse> Login(string email, string password)
         {
             var user = _userRepository.GetUserByEmail(email);
             if (user is null)
-                throw new Exception("Invalid credentials");
+                return Result<LoginResponse>.Failure(
+                    new Error(401, "Invalid Credentials")
+                    );
 
             var valid = _passwordHasher.Verify(password, user.PasswordHash, user.PasswordSalt);
             if (!valid)
-                throw new Exception("Invalid credentials");
+                return Result<LoginResponse>.Failure(
+                    new Error(401, "Invalid Credentials")
+                );
 
-            return _tokenService.CreateToken(user);
+            var token = _tokenService.CreateToken(user);
+            return Result<LoginResponse>.Success(new LoginResponse(token));
         }
     }
 }
